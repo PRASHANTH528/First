@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+    <script>
+        // JavaScript form validation
+        function validateForm() {
+            // Validate First Name
+            const firstName = document.forms["regForm"]["fname"].value;
+            if (firstName === "") {
+                alert("First Name must be filled out");
+                return false;
+            }
+
+            // Validate Last Name
+            const lastName = document.forms["regForm"]["lname"].value;
+            if (lastName === "") {
+                alert("Last Name must be filled out");
+                return false;
+            }
+
+            // Validate Username (should be less than 8 characters)
+            const username = document.forms["regForm"]["username"].value;
+            if (username.length > 8) {
+                alert("Username must be less than 8 characters");
+                return false;
+            }
+
+            // Validate Password (should contain at least one uppercase, one lowercase, one number, and at least 8 characters)
+            const password = document.forms["regForm"]["password"].value;
+            const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            if (!passwordPattern.test(password)) {
+                alert("Password must contain at least one number, one lowercase letter, one uppercase letter, and be at least 8 characters long.");
+                return false;
+            }
+
+            // Validate Email
+            const email = document.forms["regForm"]["email"].value;
+            const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email.");
+                return false;
+            }
+
+            // If validation is successful, redirect to thankyou page
+            window.location.href = "thankyou.html";
+            return false; // Prevent form submission to server
+        }
+    </script>
+</head>
+<body>
+    <form name="regForm" onsubmit="return validateForm()">
+        <div class="form-container">
+            <h1>Registration Form</h1>
+            <label for="fname">First Name:</label>
+            <input type="text" name="fname" id="fname" required><br>
+
+            <label for="lname">Last Name:</label>
+            <input type="text" name="lname" id="lname" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required><br>
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br>
+
+            <label for="gender">Gender:</label><br>
+            Male <input type="radio" name="gender" value="male" required><br>
+            Female <input type="radio" name="gender" value="female" required><br>
+
+            <label for="address">Address:</label><br>
+            <textarea name="address" id="address" required></textarea><br>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" name="mobile" id="mobile" required><br>
+
+            <input type="submit" value="Register">
+        </div>
+    </form>
+</body>
+</html>
